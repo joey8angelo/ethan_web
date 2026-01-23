@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet');
+
+@font-face {
+  font-family: AdeDisplay;
+  src: url(fonts/AdeDisplay.otf) format("opentype");
+}
+
+@font-face {
+  font-family: Aachen;
+  src: url(fonts/Aachen.otf) format("opentype");
+}
+
+@font-face {
+  font-family: AlteHaasGrotesk;
+  src: url(fonts/AlteHaasGroteskRegular.ttf) format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: AlteHaasGrotesk;
+  src: url(fonts/AlteHaasGroteskBold.ttf) format("truetype");
+  font-weight: 700;
+}
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: antiquewhite;
+  overflow-x: hidden;
+  font-family: AlteHaasGrotesk;
+  color: black;
+}
+
+a {
+  all: unset;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.grows {
+  display: inline-block;
+  transition: transform 150ms;
+}
+.grows:hover {
+  transform: scale(1.05);
+}
+
+
+.boldens {
+  display: inline-block;
+  transition: font-weight 150ms, letter-spacing 150ms;
+  width: fit-content;
+}
+
+.boldens:hover {
+  font-weight: 700;
+}
+
+.boldens::before {
+  content: attr(data-text);
+  width: fit-content;
+  letter-spacing: 0ch;
+  font-weight: 700;
+  visibility: hidden;
+  display: block;
+  height: 0;
+}
+
+.boldens.lg {
+  letter-spacing: 0.064ch;
+}
+.boldens.md {
+  letter-spacing: 0.017ch;
+}
+.boldens.sm {
+  letter-spacing: 0.0208ch;
+}
+
+.boldens:hover,
+.boldens.lg:hover,
+.boldens.md:hover,
+.boldens.sm:hover {
+  letter-spacing: 0ch;
+}

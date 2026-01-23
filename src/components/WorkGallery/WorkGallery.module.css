@@ -1,0 +1,134 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.galleryContainer {
+  height: 100vh;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.galleryTitle {
+  height: fit-content;
+  width: fit-content;
+  padding-left: 2rem;
+  padding-bottom: 2rem;
+  font-family: Aachen;
+  flex-grow: 0;
+}
+
+.galleryTitleUnderline {
+  height: 0.25rem;
+  background-color: black;
+}
+
+.galleryContent {
+  flex-grow: 1;
+  height: calc(100vh - 6rem - 6rem);
+  max-height: calc(100vh - 6rem - 6rem);
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+.hovP {
+  display: inline-block;
+  position: relative;
+}
+
+.gridContainer {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.gridItem {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  position: relative;
+}
+
+.gridImg {
+  display: block;
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.publicationElement {
+  /* width: 100%;
+  height: 100%; */
+  /* border: 1px solid black; */
+  width: fit-content;
+  height: fit-content;
+  /* align-self: center; */
+  border: 1px solid black;
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+  background-color: #d4c6b4;
+}
+
+.publicationTitle {
+  width: fit-content;
+  height: fit-content;
+  text-wrap: balance;
+  margin: auto;
+}
+
+.publicationTitle h2 {
+  margin: 0;
+  font-family: Aachen;
+  font-size: 2rem;
+}
+
+.publicationTitle p {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  font-style: italic;
+  /* text-align: left; */
+}
+
+.publicationContent {
+  z-index: 2;
+  position: relative;
+  /* padding: 1rem; */
+}
+
+.publicationContent > img {
+  /* max-width: 100%; */
+  width: calc(100%);
+  height: auto;
+  /* border-top: 1px solid black; */
+  border-bottom: 1px solid black;
+  /* padding: 0.5rem; */
+  border-radius: 1rem 1rem 0rem 0;
+}
+
+.publicationContent > p {
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  text-wrap: balance;
+  padding: 1rem 1rem 0.5rem 1rem;
+  margin: 0;
+  text-align: left;
+  /* border-top: 1px solid black; */
+}

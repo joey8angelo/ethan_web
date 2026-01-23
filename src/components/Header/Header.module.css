@@ -1,0 +1,70 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  flex-direction: row;
+  padding: 2rem 6rem 1rem 6rem;
+  line-height: 1;
+  z-index: 100;
+}
+
+
+.headerTitleContainer {
+  height: fit-content;
+  width: fit-content;
+  font-size: 3rem;
+  display: grid;
+  cursor: pointer;
+}
+
+.headerTitle {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.headerNav {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  height: fit-content;
+  margin: 0;
+  /* margin: auto 0; */
+}
+
+.workTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+.workDropdown {
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  backdrop-filter: blur(10px);
+  border-radius: 0.5rem;
+}
+
+.workDropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.workDropdown li {
+  margin: 0.5rem 0;
+  cursor: pointer;
+}
+
+.workDropdown li:hover {
+  text-decoration: underline;
+}

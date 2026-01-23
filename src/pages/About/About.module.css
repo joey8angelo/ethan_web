@@ -1,0 +1,104 @@
+body {
+  background-color: #111111;
+}
+
+.aboutSection {
+  padding-top: 8rem;
+  display: flex;
+  flex-direction: row;
+  min-height: calc(100vh - 8rem);
+  height: fit-content;
+  color: white;
+  max-width: 70%;
+  margin: auto;
+}
+
+.aboutSection img {
+  border-radius: 8px;
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.aboutContent {
+  display: flex;
+  flex-direction: column;
+  padding-left: 4rem;
+  gap: 1rem;
+}
+
+.aboutContent h1 {
+  margin: 0;
+  font-family: Aachen;
+  font-size: 3rem;
+  text-align: left;
+}
+
+.aboutContent p {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  text-align: left;
+}
+
+.resumeSection {
+  max-width: 70%;
+  margin: auto;
+  padding-top: 4rem;
+  color: white;
+} 
+
+.resumeLine {
+  height: 4px;
+  background-color: white;
+  margin-bottom: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.resumeContent {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.resumeElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resumeElement h2 {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-family: Aachen;
+  font-size: 2rem;
+  flex-grow: 1;
+}
+
+.resumeElementItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.resumeItemPrimary {
+  font-size: 1.5rem;
+  font-weight: 700;
+  white-space: pre-line;
+}
+
+.resumeItemSecondary {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-top: 0.25rem;
+}
+
+.resumeItemTernary {
+  font-size: 1rem;
+  font-weight: 300;
+  margin-top: 0.25rem;
+}

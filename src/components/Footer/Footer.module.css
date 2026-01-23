@@ -1,0 +1,51 @@
+.footer {
+  width: 100vw;
+}
+
+.contactSection {
+  height: 25vh;
+  color: #aaaaaa;
+  display: flex;
+  flex-direction: row;
+  align-items:end;
+  justify-content: space-between;
+  padding: 0rem 6rem 0rem 6rem;
+}
+
+.contactContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: 2rem;
+}
+
+.contactContent h2 {
+  margin: 0;
+  font-family: Aachen;
+  font-size: 3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.contactSocials {
+ display: flex;
+  flex-direction: column; 
+  align-items: flex-end;
+  font-size: 1.5rem;
+}
+
+.switchWordContainer {
+  display: grid;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  width: 5em;
+}
+
+.switchWord {
+  margin: 0 10px;
+  grid-area: 1 / 1;
+  white-space: pre;
+}

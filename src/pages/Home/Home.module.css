@@ -1,0 +1,48 @@
+.heroSection {
+  height: 100vh;
+  width: 100vw;
+  cursor: none;
+  position: relative;
+}
+
+.heroUnderlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: antiquewhite;
+  z-index: 0;
+}
+
+.heroUnderlay video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.hero {
+  width: 100vw;
+  height: 100vh;
+  font-family: Aachen;
+  font-size: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  margin: 0;
+  color: white;
+}
+
+.cursorContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: black;
+}

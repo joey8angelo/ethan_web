@@ -1,0 +1,8 @@
+.slideElementContainer {
+  display: grid;
+  overflow: hidden;
+}
+
+.slideElement {
+  grid-area: 1 / 1 / 2 / 2;
+}
