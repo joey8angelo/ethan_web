@@ -36,14 +36,16 @@ function PublicationElement({
 }
 
 interface ImgElement {
-  src: string;
+  smSrc: string;
+  lgSrc: string;
   vertical?: boolean;
   top?: boolean;
   bottom?: boolean;
 }
 
 function ImgElement({
-  src,
+  smSrc,
+  lgSrc,
   vertical = false,
   top = false,
   bottom = false,
@@ -75,7 +77,7 @@ function ImgElement({
         }}
         transition={{ duration: 0.3 }}
         ref={imgRef}
-        src={src}
+        src={smSrc}
         loading="lazy"
         className={styles.gridImg}
         onClick={() => {
@@ -84,7 +86,7 @@ function ImgElement({
       />
       <LightBox ref={viewRef} inset={90}>
         <img
-          src={src}
+          src={lgSrc}
           style={{
             maxWidth: "90vw",
             maxHeight: "90vh",
@@ -233,12 +235,12 @@ const sections = [
       <div className={styles.gridContainer}>
         <GifElement
           gifSrc="images/short_films/1.gif"
-          imgSrc="images/short_films/1.jpg"
+          imgSrc="images/short_films/small/1.jpg"
           videoID="m0CkwZCwKFI"
         />
         <GifElement
           gifSrc="images/short_films/2.gif"
-          imgSrc="images/short_films/2.jpg"
+          imgSrc="images/short_films/small/2.jpg"
           videoID="qeF323whw2c"
         />
       </div>
@@ -254,31 +256,31 @@ const sections = [
       >
         <GifElement
           gifSrc="images/music_videos/1.gif"
-          imgSrc="images/music_videos/1.jpg"
+          imgSrc="images/music_videos/small/1.jpg"
           videoID="K0rZcPCz74I"
           top
         />
         <GifElement
           gifSrc="images/music_videos/2.gif"
-          imgSrc="images/music_videos/2.jpg"
+          imgSrc="images/music_videos/small/2.jpg"
           videoID="w4WMgnbgDM4"
           bottom
         />
         <GifElement
           gifSrc="images/music_videos/3.gif"
-          imgSrc="images/music_videos/3.jpg"
+          imgSrc="images/music_videos/small/3.jpg"
           videoID="1w5k5kI8zOo"
           top
         />
         <GifElement
           gifSrc="images/music_videos/4.gif"
-          imgSrc="images/music_videos/4.jpg"
+          imgSrc="images/music_videos/small/4.jpg"
           videoID="4j7tPrPMIgk"
           bottom
         />
         <GifElement
           gifSrc="images/music_videos/5.gif"
-          imgSrc="images/music_videos/5.jpg"
+          imgSrc="images/music_videos/small/5.jpg"
           videoID="izSjUe2JW5Q"
           top
         />
@@ -293,16 +295,56 @@ const sections = [
         className={styles.gridContainer}
         style={{ gridTemplateRows: "repeat(2, minmax(0, 1fr))" }}
       >
-        <ImgElement src="images/concerts/1.jpg" top />
-        <ImgElement src="images/concerts/5.jpg" bottom />
-        <ImgElement src="images/concerts/2.jpg" vertical />
-        <ImgElement src="images/concerts/4.jpg" vertical />
-        <ImgElement src="images/concerts/3.jpg" vertical />
-        <ImgElement src="images/concerts/6.jpg" vertical />
-        <ImgElement src="images/concerts/7.jpg" top />
-        <ImgElement src="images/concerts/8.jpg" bottom />
-        <ImgElement src="images/concerts/9.jpg" vertical />
-        <ImgElement src="images/concerts/10.jpg" vertical />
+        <ImgElement
+          smSrc="images/concerts/small/1.jpg"
+          lgSrc="images/concerts/large/1.jpg"
+          top
+        />
+        <ImgElement
+          smSrc="images/concerts/small/5.jpg"
+          lgSrc="images/concerts/large/5.jpg"
+          bottom
+        />
+        <ImgElement
+          smSrc="images/concerts/small/2.jpg"
+          lgSrc="images/concerts/large/2.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/concerts/small/4.jpg"
+          lgSrc="images/concerts/large/4.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/concerts/small/3.jpg"
+          lgSrc="images/concerts/large/3.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/concerts/small/6.jpg"
+          lgSrc="images/concerts/large/6.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/concerts/small/7.jpg"
+          lgSrc="images/concerts/large/7.jpg"
+          top
+        />
+        <ImgElement
+          smSrc="images/concerts/small/8.jpg"
+          lgSrc="images/concerts/large/8.jpg"
+          bottom
+        />
+        <ImgElement
+          smSrc="images/concerts/small/9.jpg"
+          lgSrc="images/concerts/large/9.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/concerts/small/10.jpg"
+          lgSrc="images/concerts/large/10.jpg"
+          vertical
+        />
       </div>
     ),
   },
@@ -313,7 +355,7 @@ const sections = [
       <div className={styles.gridContainer}>
         <GifElement
           gifSrc="images/weddings/1.gif"
-          imgSrc="images/weddings/1.jpg"
+          imgSrc="images/weddings/small/1.jpg"
           videoID="-7spP7Ksj-Q"
         />
       </div>
@@ -327,24 +369,96 @@ const sections = [
         className={styles.gridContainer}
         style={{ gridTemplateRows: "repeat(2, minmax(0, 1fr))" }}
       >
-        <ImgElement src="images/portraits/1.jpg" vertical />
-        <ImgElement src="images/portraits/2.jpg" top />
-        <ImgElement src="images/portraits/4.jpg" bottom />
-        <ImgElement src="images/portraits/3.jpg" vertical />
-        <ImgElement src="images/portraits/5.jpg" vertical />
-        <ImgElement src="images/portraits/6.jpg" top />
-        <ImgElement src="images/portraits/7.jpg" bottom />
-        <ImgElement src="images/portraits/8.jpg" vertical />
-        <ImgElement src="images/portraits/9.jpg" vertical />
-        <ImgElement src="images/portraits/10.jpg" vertical />
-        <ImgElement src="images/portraits/11.jpg" vertical />
-        <ImgElement src="images/portraits/12.jpg" vertical />
-        <ImgElement src="images/portraits/13.jpg" top />
-        <ImgElement src="images/portraits/18.jpg" bottom />
-        <ImgElement src="images/portraits/14.jpg" vertical />
-        <ImgElement src="images/portraits/15.jpg" vertical />
-        <ImgElement src="images/portraits/16.jpg" vertical />
-        <ImgElement src="images/portraits/17.jpg" vertical />
+        <ImgElement
+          smSrc="images/portraits/small/1.jpg"
+          lgSrc="images/portraits/large/1.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/portraits/small/2.jpg"
+          lgSrc="images/portraits/large/2.jpg"
+          top
+        />
+        <ImgElement
+          smSrc="images/portraits/small/4.jpg"
+          lgSrc="images/portraits/large/4.jpg"
+          bottom
+        />
+        <ImgElement
+          smSrc="images/portraits/small/3.jpg"
+          lgSrc="images/portraits/large/3.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/portraits/small/5.jpg"
+          lgSrc="images/portraits/large/5.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/portraits/small/6.jpg"
+          lgSrc="images/portraits/large/6.jpg"
+          top
+        />
+        <ImgElement
+          smSrc="images/portraits/small/7.jpg"
+          lgSrc="images/portraits/large/7.jpg"
+          bottom
+        />
+        <ImgElement
+          smSrc="images/portraits/small/8.jpg"
+          lgSrc="images/portraits/large/8.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/portraits/small/9.jpg"
+          lgSrc="images/portraits/large/9.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/portraits/small/10.jpg"
+          lgSrc="images/portraits/large/10.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/portraits/small/11.jpg"
+          lgSrc="images/portraits/large/11.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/portraits/small/12.jpg"
+          lgSrc="images/portraits/large/12.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/portraits/small/13.jpg"
+          lgSrc="images/portraits/large/13.jpg"
+          top
+        />
+        <ImgElement
+          smSrc="images/portraits/small/18.jpg"
+          lgSrc="images/portraits/large/18.jpg"
+          bottom
+        />
+        <ImgElement
+          smSrc="images/portraits/small/14.jpg"
+          lgSrc="images/portraits/large/14.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/portraits/small/15.jpg"
+          lgSrc="images/portraits/large/15.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/portraits/small/16.jpg"
+          lgSrc="images/portraits/large/16.jpg"
+          vertical
+        />
+        <ImgElement
+          smSrc="images/portraits/small/17.jpg"
+          lgSrc="images/portraits/large/17.jpg"
+          vertical
+        />
       </div>
     ),
   },
