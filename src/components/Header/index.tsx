@@ -1,5 +1,5 @@
 import styles from "./Header.module.css";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 
 import SlideElement from "@/components/SlideElement";
@@ -194,6 +194,18 @@ export default function Header({
 }: HeaderProps) {
   const lenis = useLenis();
   const isHome = window.location.pathname === "/";
+  const [isTop, setIsTop] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsTop(window.scrollY === 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <motion.header
@@ -202,8 +214,9 @@ export default function Header({
       animate={{
         paddingLeft: altLayout ? "6rem" : "2rem",
         paddingRight: altLayout ? "6rem" : "2rem",
-        transition: { duration: 0.3 },
         color,
+        backdropFilter: isTop ? "none" : "blur(10px)",
+        transition: { duration: 0.3 },
       }}
     >
       <div className={styles.headerTitleContainer}>

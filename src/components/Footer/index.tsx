@@ -19,17 +19,7 @@ export default function Footer({ ref }: FooterProps) {
   }, [words.length]);
 
   return (
-    <footer
-      className={styles.footer}
-      // style={{
-      //   backgroundColor: "#111111",
-      //   color: "#aaaaaa",
-      //   paddingRight: "6rem",
-      //   paddingBottom: "0.5rem",
-      //   textAlign: "right",
-      //   fontSize: "0.8rem",
-      // }}
-    >
+    <footer className={styles.footer}>
       <section id="contact" className={styles.contactSection} ref={ref}>
         <div className={styles.contactContent}>
           <a href="mailto:ethan.bermudez23@gmail.com">
@@ -45,8 +35,11 @@ export default function Footer({ ref }: FooterProps) {
           </a>
           <h2>
             LETS
-            <motion.span className={styles.switchWordContainer} layout>
-              <AnimatePresence>
+            <motion.div
+              className={styles.switchWordContainer}
+              animate={{ width: words[idx].length + 2 + "ch" }}
+            >
+              <AnimatePresence mode="wait">
                 {words.map(
                   (word, index) =>
                     idx === index && (
@@ -63,7 +56,7 @@ export default function Footer({ ref }: FooterProps) {
                     ),
                 )}
               </AnimatePresence>
-            </motion.span>
+            </motion.div>
             TOGETHER
           </h2>
         </div>

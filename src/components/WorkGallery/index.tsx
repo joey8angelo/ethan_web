@@ -6,11 +6,15 @@ import {
   useInView,
   type MotionValue,
   useMotionTemplate,
+  useMotionValue,
+  hover,
 } from "motion/react";
 import styles from "./WorkGallery.module.css";
 import { useEffect, useRef, useState } from "react";
 import LightBox, { type LightBoxHandle } from "@/components/LightBox";
 import { LiteYoutubeEmbed } from "react-lite-yt-embed";
+import { animate } from "motion";
+import Card from "../Card";
 
 interface PublicationElementProps {
   imgSrc: string;
@@ -47,7 +51,7 @@ interface ImgElementProps {
   vertical?: boolean;
   top?: boolean;
   bottom?: boolean;
-  progress: MotionValue<number>;
+  scrollProgress: MotionValue<number>;
 }
 
 function ImgElement({
@@ -56,15 +60,59 @@ function ImgElement({
   vertical = false,
   top = false,
   bottom = false,
-  progress,
+  scrollProgress,
 }: ImgElementProps) {
   const viewRef = useRef<LightBoxHandle>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const inNearView = useInView(imgRef, { margin: "-50px", once: true });
   const inFarView = useInView(imgRef, { margin: "-500px" });
 
-  const px = useTransform(progress, [0, 0.25], ["-8px", "8px"]);
-  const boxShadow = useMotionTemplate`${px} 6px 6px rgba(0, 0, 0, 0.2)`;
+  const duration = 0.2;
+  const blurAmount = useMotionValue("6px");
+  const shadowOpacity = useMotionValue(0.2);
+
+  useEffect(() => {
+    const el = imgRef.current;
+    if (!el) return;
+
+    return hover(el, () => {
+      const animations = [
+        animate(
+          el,
+          { scale: 1.03 },
+          { duration: duration, ease: [0.25, 1, 0.5, 1] },
+        ),
+        animate(blurAmount, "12px", {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        }),
+        animate(shadowOpacity, 0.4, {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        }),
+      ];
+
+      return () => {
+        animations.forEach((anim) => anim.stop());
+        animate(
+          el,
+          { scale: 1 },
+          { duration: duration, ease: [0.25, 1, 0.5, 1] },
+        );
+        animate(blurAmount, "6px", {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        });
+        animate(shadowOpacity, 0.2, {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        });
+      };
+    });
+  }, [blurAmount, shadowOpacity]);
+
+  const px = useTransform(scrollProgress, [0, 0.25], ["-8px", "8px"]);
+  const boxShadow = useMotionTemplate`${px} 6px ${blurAmount} rgba(0, 0, 0, ${shadowOpacity})`;
 
   useEffect(() => {
     if (!inFarView) {
@@ -117,7 +165,7 @@ interface GifElementProps {
   videoID: string;
   top?: boolean;
   bottom?: boolean;
-  progress: MotionValue<number>;
+  scrollProgress: MotionValue<number>;
 }
 
 function GifElement({
@@ -126,7 +174,7 @@ function GifElement({
   videoID,
   top = false,
   bottom = false,
-  progress,
+  scrollProgress,
 }: GifElementProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [gifLoaded, setGifLoaded] = useState(false);
@@ -141,9 +189,52 @@ function GifElement({
     img.onload = () => setGifLoaded(true);
   }, [gifSrc]);
 
-  const px = useTransform(progress, [0, 0.25], ["-8px", "8px"]);
+  const duration = 0.2;
+  const blurAmount = useMotionValue("6px");
+  const shadowOpacity = useMotionValue(0.2);
 
-  const boxShadow = useMotionTemplate`${px} 6px 6px rgba(0, 0, 0, 0.2)`;
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    return hover(el, () => {
+      const animations = [
+        animate(
+          el,
+          { scale: 1.03 },
+          { duration: duration, ease: [0.25, 1, 0.5, 1] },
+        ),
+        animate(blurAmount, "12px", {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        }),
+        animate(shadowOpacity, 0.4, {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        }),
+      ];
+
+      return () => {
+        animations.forEach((anim) => anim.stop());
+        animate(
+          el,
+          { scale: 1 },
+          { duration: duration, ease: [0.25, 1, 0.5, 1] },
+        );
+        animate(blurAmount, "6px", {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        });
+        animate(shadowOpacity, 0.2, {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        });
+      };
+    });
+  }, [blurAmount, shadowOpacity]);
+
+  const px = useTransform(scrollProgress, [0, 0.25], ["-8px", "8px"]);
+  const boxShadow = useMotionTemplate`${px} 6px ${blurAmount} rgba(0, 0, 0, ${shadowOpacity})`;
 
   return (
     <div
@@ -214,7 +305,6 @@ interface GalleryContainerProps {
   size: number;
   start: number;
   totalSize: number;
-  type: "img" | "gif" | "publication";
   rows?: number;
   data: {
     img?: {
@@ -246,7 +336,6 @@ function GalleryContainer({
   size,
   start,
   totalSize,
-  type,
   data,
   rows = 1,
 }: GalleryContainerProps) {
@@ -255,13 +344,11 @@ function GalleryContainer({
   const st = start / totalSize;
   const en = (start + size) / totalSize;
 
-  console.log(title, st, en);
+  const scrollProgress = useTransform(scrollAmount, [st, en], [0, 1]);
 
-  const progress = useTransform(scrollAmount, [st, en], [0, 1]);
-
-  const x = useTransform(progress, [0, 1], ["0vw", `${size}vw`]);
-  const opacity = useTransform(progress, [0, 0.8, 1], [1, 1, 0]);
-  const width = useTransform(progress, [0, 1], ["0%", "100%"]);
+  const x = useTransform(scrollProgress, [0, 1], ["0vw", `${size}vw`]);
+  const opacity = useTransform(scrollProgress, [0, 0.8, 1], [1, 1, 0]);
+  const width = useTransform(scrollProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div style={{ width: `${size}vw` }} className={styles.galleryContainer}>
@@ -272,32 +359,15 @@ function GalleryContainer({
             gridTemplateRows: `repeat(${rows || 1}, minmax(0, 1fr))`,
           }}
         >
-          {data[type]!.map((item, idx) => {
-            if (type === "img") {
-              return (
-                <ImgElement
-                  key={idx}
-                  {...(item as ImgElementProps)}
-                  progress={progress}
-                />
-              );
-            } else if (type === "gif") {
-              return (
-                <GifElement
-                  key={idx}
-                  {...(item as GifElementProps)}
-                  progress={progress}
-                />
-              );
-            } else if (type === "publication") {
-              return (
-                <PublicationElement
-                  key={idx}
-                  {...(item as PublicationElementProps)}
-                />
-              );
-            }
-          })}
+          {data.img?.map((item, idx) => (
+            <ImgElement key={idx} {...item} scrollProgress={scrollProgress} />
+          ))}
+          {data.gif?.map((item, idx) => (
+            <GifElement key={idx} {...item} scrollProgress={scrollProgress} />
+          ))}
+          {data.publication?.map((item, idx) => (
+            <PublicationElement key={idx} {...item} />
+          ))}
         </div>
       </div>
       <motion.div className={styles.galleryTitle} style={{ x, opacity }}>
@@ -314,8 +384,7 @@ function GalleryContainer({
 const sections = [
   {
     title: "Short Films",
-    size: 100,
-    type: "gif",
+    size: 80,
     rows: 1,
     data: {
       gif: [
@@ -336,8 +405,7 @@ const sections = [
   },
   {
     title: "Music Videos",
-    size: 120,
-    type: "gif",
+    size: 100,
     rows: 2,
     data: {
       gif: [
@@ -376,68 +444,105 @@ const sections = [
   },
   {
     title: "Concerts",
-    size: 200,
-    type: "img",
+    size: 133,
     rows: 2,
     data: {
-      img: [
+      // img: [
+      //   {
+      //     smSrc: "images/concerts/small/1.jpg",
+      //     lgSrc: "images/concerts/large/1.jpg",
+      //     top: true,
+      //   },
+      //   {
+      //     smSrc: "images/concerts/small/5.jpg",
+      //     lgSrc: "images/concerts/large/5.jpg",
+      //     bottom: true,
+      //   },
+      //   {
+      //     smSrc: "images/concerts/small/2.jpg",
+      //     lgSrc: "images/concerts/large/2.jpg",
+      //     vertical: true,
+      //   },
+      //   {
+      //     smSrc: "images/concerts/small/4.jpg",
+      //     lgSrc: "images/concerts/large/4.jpg",
+      //     vertical: true,
+      //   },
+      //   {
+      //     smSrc: "images/concerts/small/3.jpg",
+      //     lgSrc: "images/concerts/large/3.jpg",
+      //     vertical: true,
+      //   },
+      //   {
+      //     smSrc: "images/concerts/small/6.jpg",
+      //     lgSrc: "images/concerts/large/6.jpg",
+      //     vertical: true,
+      //   },
+      //   {
+      //     smSrc: "images/concerts/small/7.jpg",
+      //     lgSrc: "images/concerts/large/7.jpg",
+      //     top: true,
+      //   },
+      //   {
+      //     smSrc: "images/concerts/small/8.jpg",
+      //     lgSrc: "images/concerts/large/8.jpg",
+      //     bottom: true,
+      //   },
+      //   {
+      //     smSrc: "images/concerts/small/9.jpg",
+      //     lgSrc: "images/concerts/large/9.jpg",
+      //     vertical: true,
+      //   },
+      // ],
+      gif: [
         {
-          smSrc: "images/concerts/small/1.jpg",
-          lgSrc: "images/concerts/large/1.jpg",
+          gifSrc: "images/concerts/10.gif",
+          imgSrc: "images/concerts/small/10.jpg",
+          videoID: "",
           top: true,
         },
         {
-          smSrc: "images/concerts/small/5.jpg",
-          lgSrc: "images/concerts/large/5.jpg",
+          gifSrc: "images/concerts/11.gif",
+          imgSrc: "images/concerts/small/11.jpg",
+          videoID: "",
           bottom: true,
         },
         {
-          smSrc: "images/concerts/small/2.jpg",
-          lgSrc: "images/concerts/large/2.jpg",
-          vertical: true,
-        },
-        {
-          smSrc: "images/concerts/small/4.jpg",
-          lgSrc: "images/concerts/large/4.jpg",
-          vertical: true,
-        },
-        {
-          smSrc: "images/concerts/small/3.jpg",
-          lgSrc: "images/concerts/large/3.jpg",
-          vertical: true,
-        },
-        {
-          smSrc: "images/concerts/small/6.jpg",
-          lgSrc: "images/concerts/large/6.jpg",
-          vertical: true,
-        },
-        {
-          smSrc: "images/concerts/small/7.jpg",
-          lgSrc: "images/concerts/large/7.jpg",
+          gifSrc: "images/concerts/12.gif",
+          imgSrc: "images/concerts/small/12.jpg",
+          videoID: "",
           top: true,
         },
         {
-          smSrc: "images/concerts/small/8.jpg",
-          lgSrc: "images/concerts/large/8.jpg",
+          gifSrc: "images/concerts/13.gif",
+          imgSrc: "images/concerts/small/13.jpg",
+          videoID: "",
           bottom: true,
         },
         {
-          smSrc: "images/concerts/small/9.jpg",
-          lgSrc: "images/concerts/large/9.jpg",
-          vertical: true,
+          gifSrc: "images/concerts/14.gif",
+          imgSrc: "images/concerts/small/14.jpg",
+          videoID: "",
+          top: true,
         },
         {
-          smSrc: "images/concerts/small/10.jpg",
-          lgSrc: "images/concerts/large/10.jpg",
-          vertical: true,
+          gifSrc: "images/concerts/15.gif",
+          imgSrc: "images/concerts/small/15.jpg",
+          videoID: "",
+          bottom: true,
+        },
+        {
+          gifSrc: "images/concerts/16.gif",
+          imgSrc: "images/concerts/small/16.jpg",
+          videoID: "",
+          top: true,
         },
       ],
     },
   },
   {
     title: "Weddings",
-    size: 100,
-    type: "gif",
+    size: 60,
     rows: 1,
     data: {
       gif: [
@@ -452,7 +557,6 @@ const sections = [
   {
     title: "Portraits",
     size: 350,
-    type: "img",
     rows: 2,
     data: {
       img: [
@@ -552,7 +656,6 @@ const sections = [
   {
     title: "Published Work",
     size: 100,
-    type: "publication",
     rows: 2,
     data: {
       publication: [
@@ -680,12 +783,19 @@ export default function WorkGallery() {
               size={section.size}
               start={preSumSizes[idx]}
               totalSize={totalSize}
-              type={section.type as "img" | "gif" | "publication"}
               data={section.data}
               rows={section.rows}
             />
           </>
         ))}
+        <div>
+          <Card
+            coverImage="images/publications/1.jpg"
+            title="Help Wanted: Can You Fly a Plane?"
+            magazine="La Verne Magazine"
+            excerpt="Pilots are in demand for the first time in half a century. It is a great time to earn your wings."
+          />
+        </div>
       </div>
     </HorizontalScrollSection>
   );
