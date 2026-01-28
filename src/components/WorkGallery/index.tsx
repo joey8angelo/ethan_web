@@ -8,6 +8,7 @@ import {
   useMotionTemplate,
   useMotionValue,
   hover,
+  AnimatePresence,
 } from "motion/react";
 import styles from "./WorkGallery.module.css";
 import { useEffect, useRef, useState } from "react";
@@ -218,24 +219,26 @@ function ImgElement({
         alignItems: bottom ? "start" : top ? "end" : "center",
       }}
     >
-      <motion.img
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{
-          opacity: inNearView ? 1 : 0,
-          scale: inNearView ? 1 : 0.95,
-        }}
-        transition={{ duration: 0.3 }}
-        ref={imgRef}
-        src={smSrc}
-        loading="lazy"
-        className={styles.gridImg}
-        onClick={() => {
-          viewRef.current?.open();
-        }}
-        style={{
-          boxShadow: boxShadow,
-        }}
-      />
+      <AnimatePresence>
+        <motion.img
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{
+            opacity: inNearView ? 1 : 0,
+            scale: inNearView ? 1 : 0.95,
+          }}
+          transition={{ duration: 0.3 }}
+          ref={imgRef}
+          src={smSrc}
+          loading="lazy"
+          className={styles.gridImg}
+          onClick={() => {
+            viewRef.current?.open();
+          }}
+          style={{
+            boxShadow: boxShadow,
+          }}
+        />
+      </AnimatePresence>
       <LightBox ref={viewRef} inset={90}>
         <img
           src={lgSrc}
