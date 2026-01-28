@@ -56,6 +56,12 @@ const data = [
           videoID: "izSjUe2JW5Q",
           top: true,
         },
+        {
+          gifSrc: "images/music_videos/6.gif",
+          imgSrc: "images/music_videos/small/6.jpg",
+          videoID: "cEKQLmOxplk",
+          bottom: true,
+        },
       ],
     },
   },
