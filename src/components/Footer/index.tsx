@@ -35,9 +35,11 @@ export default function Footer({ ref }: FooterProps) {
           </a>
           <h2>
             LETS
-            <motion.div
+            <div
               className={styles.switchWordContainer}
-              animate={{ width: words[idx].length + 2 + "ch" }}
+              style={{
+                width: `${words.reduce((max, word) => Math.max(max, word.length), 0) + 1}ch`,
+              }}
             >
               <AnimatePresence mode="wait">
                 {words.map(
@@ -56,7 +58,7 @@ export default function Footer({ ref }: FooterProps) {
                     ),
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
             TOGETHER
           </h2>
         </div>
