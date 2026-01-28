@@ -8,7 +8,6 @@ import {
   useMotionTemplate,
   useMotionValue,
   hover,
-  AnimatePresence,
 } from "motion/react";
 import styles from "./WorkGallery.module.css";
 import { useEffect, useRef, useState } from "react";
