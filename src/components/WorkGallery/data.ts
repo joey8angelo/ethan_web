@@ -278,7 +278,7 @@ const data = [
   },
   {
     title: "Published Work",
-    size: 200,
+    size: 150,
     rows: 2,
     data: {
       publication: [
