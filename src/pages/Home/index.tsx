@@ -13,6 +13,9 @@ import { FaRegCirclePlay } from "react-icons/fa6";
 import { useRef } from "react";
 import { useInView } from "motion/react";
 import { useLenis } from "lenis/react";
+import LightBox, { type LightBoxHandle } from "@/components/LightBox";
+
+import { LiteYoutubeEmbed } from "react-lite-yt-embed";
 
 const dc = "#111111";
 const lc = "#f8f8f8";
@@ -30,6 +33,8 @@ export default function Home() {
   const footerInView = useInView(footerRef);
   const headerColor = topInVew ? "white" : footerInView ? "#aaaaaa" : "black";
 
+  const lbRef = useRef<LightBoxHandle>(null);
+
   return (
     <>
       <Cursor
@@ -41,7 +46,7 @@ export default function Home() {
           filter: "invert(1)",
         }}
         onMouseDown={() => {
-          console.log("mousedown");
+          lbRef.current?.open();
         }}
       >
         <FaRegCirclePlay size={40} />
@@ -106,6 +111,25 @@ export default function Home() {
           <div className={styles.hero}>
             <h1>ETHAN BERMUDEZ</h1>
           </div>
+          <LightBox ref={lbRef}>
+            <div
+              style={{
+                width: "80vw",
+                height: "80vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                }}
+              >
+                <LiteYoutubeEmbed id={"dyXGWZeF40o"} />
+              </div>
+            </div>
+          </LightBox>
         </section>
         <WorkGallery />
       </main>
