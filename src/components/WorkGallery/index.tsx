@@ -16,8 +16,9 @@ import { LiteYoutubeEmbed } from "react-lite-yt-embed";
 import { animate } from "motion";
 import data from "./data";
 
+// Each element can be a single component in the future
+// each has almost identical logic
 const duration = 0.2;
-
 interface PublicationElementProps {
   imgSrc: string;
   title: string;
@@ -36,6 +37,8 @@ function PublicationElement({
   const imgRef = useRef<HTMLAnchorElement>(null);
   const blurAmount = useMotionValue("6px");
   const shadowOpacity = useMotionValue(0.2);
+  const inNearView = useInView(imgRef, { margin: "-100px", once: true });
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   useEffect(() => {
     const el = imgRef.current;
@@ -97,6 +100,11 @@ function PublicationElement({
           boxShadow: boxShadow,
           borderRadius: "1rem",
         }}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{
+          opacity: inNearView && imgLoaded ? 1 : 0,
+          scale: inNearView && imgLoaded ? 1 : 0.95,
+        }}
         ref={imgRef}
       >
         <img
@@ -107,6 +115,7 @@ function PublicationElement({
             width: "auto",
             height: "100%",
           }}
+          onLoad={() => setImgLoaded(true)}
         />
       </motion.a>
       <a
@@ -272,6 +281,7 @@ function GifElement({
 }: GifElementProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [gifLoaded, setGifLoaded] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
   const viewRef = useRef<LightBoxHandle>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -341,8 +351,8 @@ function GifElement({
         ref={containerRef}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{
-          opacity: inView ? 1 : 0,
-          scale: inView ? 1 : 0.95,
+          opacity: inView && imgLoaded ? 1 : 0,
+          scale: inView && imgLoaded ? 1 : 0.95,
         }}
         transition={{ duration: 0.3 }}
         className={styles.gifContainer}
@@ -364,6 +374,7 @@ function GifElement({
             onMouseLeave={() => setIsHovered(false)}
             src={imgSrc}
             loading="lazy"
+            onLoad={() => setImgLoaded(true)}
             className={styles.gridImg}
           />
         )}
