@@ -16,30 +16,121 @@ import { LiteYoutubeEmbed } from "react-lite-yt-embed";
 import { animate } from "motion";
 import data from "./data";
 
+const duration = 0.2;
+
 interface PublicationElementProps {
   imgSrc: string;
   title: string;
   magazine: string;
-  blurb: string;
   link: string;
+  scrollProgress: MotionValue<number>;
 }
 
 function PublicationElement({
   imgSrc,
   title,
   magazine,
-  blurb,
   link,
+  scrollProgress,
 }: PublicationElementProps) {
+  const imgRef = useRef<HTMLAnchorElement>(null);
+  const blurAmount = useMotionValue("6px");
+  const shadowOpacity = useMotionValue(0.2);
+
+  useEffect(() => {
+    const el = imgRef.current;
+    if (!el) return;
+
+    return hover(el, () => {
+      const animations = [
+        animate(
+          el,
+          { scale: 1.01 },
+          { duration: duration, ease: [0.25, 1, 0.5, 1] },
+        ),
+        animate(blurAmount, "12px", {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        }),
+        animate(shadowOpacity, 0.4, {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        }),
+      ];
+
+      return () => {
+        animations.forEach((anim) => anim.stop());
+        animate(
+          el,
+          { scale: 1 },
+          { duration: duration, ease: [0.25, 1, 0.5, 1] },
+        );
+        animate(blurAmount, "6px", {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        });
+        animate(shadowOpacity, 0.2, {
+          duration: duration,
+          ease: [0.25, 1, 0.5, 1],
+        });
+      };
+    });
+  }, [blurAmount, shadowOpacity]);
+
+  const px = useTransform(scrollProgress, [0, 0.25], ["-8px", "8px"]);
+  const boxShadow = useMotionTemplate`${px} 6px ${blurAmount} rgba(0, 0, 0, ${shadowOpacity})`;
+
   return (
-    <div className={styles.publicationElement}>
-      <a href={link} className={styles.publicationContent}>
-        <img src={imgSrc} />
-        <div className={styles.publicationTitle}>
-          <h2>{title}</h2>
-          <p>{magazine}</p>
-        </div>
-        <p>{blurb}</p>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "5px",
+      }}
+      className={styles.gridItem}
+    >
+      <motion.a
+        href={link}
+        style={{
+          overflow: "hidden",
+          flexGrow: 1,
+          boxShadow: boxShadow,
+          borderRadius: "1rem",
+        }}
+        ref={imgRef}
+      >
+        <img
+          src={imgSrc}
+          className={styles.gridImg}
+          loading="lazy"
+          style={{
+            width: "auto",
+            height: "100%",
+          }}
+        />
+      </motion.a>
+      <a
+        href={link}
+        style={{ display: "flex", flexDirection: "column", gap: "4px" }}
+      >
+        <h3
+          style={{
+            fontWeight: 600,
+            fontSize: "1.1rem",
+            margin: 0,
+          }}
+        >
+          {title}
+        </h3>
+        <p
+          style={{
+            fontSize: "0.9rem",
+            margin: 0,
+            color: "#555555",
+          }}
+        >
+          {magazine}
+        </p>
       </a>
     </div>
   );
@@ -67,7 +158,6 @@ function ImgElement({
   const inNearView = useInView(imgRef, { margin: "-50px", once: true });
   const inFarView = useInView(imgRef, { margin: "-500px" });
 
-  const duration = 0.2;
   const blurAmount = useMotionValue("6px");
   const shadowOpacity = useMotionValue(0.2);
 
@@ -189,7 +279,6 @@ function GifElement({
     img.onload = () => setGifLoaded(true);
   }, [gifSrc]);
 
-  const duration = 0.2;
   const blurAmount = useMotionValue("6px");
   const shadowOpacity = useMotionValue(0.2);
 
@@ -364,7 +453,11 @@ function GalleryContainer({
             <GifElement key={idx} {...item} scrollProgress={scrollProgress} />
           ))}
           {data.publication?.map((item, idx) => (
-            <PublicationElement key={idx} {...item} />
+            <PublicationElement
+              key={idx}
+              {...item}
+              scrollProgress={scrollProgress}
+            />
           ))}
         </div>
       </div>

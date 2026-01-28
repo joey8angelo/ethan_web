@@ -273,11 +273,11 @@ const data = [
   {
     title: "Published Work",
     size: 200,
-    rows: 1,
+    rows: 2,
     data: {
       publication: [
         {
-          imgSrc: "images/publications/1.jpg",
+          imgSrc: "images/published/1.jpg",
           title: "Help Wanted: Can You Fly a Plane?",
           magazine: "La Verne Magazine",
           blurb:
@@ -285,7 +285,7 @@ const data = [
           link: "https://lavernemagazine.org/2022/09/help-wanted-can-you-fly-a-plane/",
         },
         {
-          imgSrc: "images/publications/2.jpg",
+          imgSrc: "images/published/2.jpg",
           title: "Pandemic Silver Linings: Finding Positivity in the Past",
           magazine: "La Verne Magazine",
           blurb:
@@ -293,7 +293,7 @@ const data = [
           link: "https://lavernemagazine.org/2022/09/pandemic-silver-linings-finding-positivity-in-the-past/",
         },
         {
-          imgSrc: "images/publications/3.jpg",
+          imgSrc: "images/published/3.jpg",
           title: "Salcedo's extra inning walk-off steals win from Bulldogs",
           magazine: "Campus Times",
           blurb:
@@ -301,7 +301,7 @@ const data = [
           link: "https://lvcampustimes.org/2022/03/salcedos-extra-inning-walk-off-steals-win-from-bulldogs/",
         },
         {
-          imgSrc: "images/publications/4.jpg",
+          imgSrc: "images/published/4.jpg",
           title: "Exhibit blends tapestry with sculpture",
           magazine: "Campus Times",
           blurb:
@@ -309,7 +309,7 @@ const data = [
           link: "https://lvcampustimes.org/2022/03/exhibit-blends-tapestry-with-sculpture/",
         },
         {
-          imgSrc: "images/publications/5.jpg",
+          imgSrc: "images/published/5.jpg",
           title: "Artist's legacy told through sculpture and woodfire",
           magazine: "Campus Times",
           blurb:
@@ -317,7 +317,7 @@ const data = [
           link: "https://lvcampustimes.org/2022/02/artists-legacy-told-through-sculpture-and-woodfire/",
         },
         {
-          imgSrc: "images/publications/6.jpg",
+          imgSrc: "images/published/6.jpg",
           title: "Wood fire ceramics show diversity of materials",
           magazine: "Campus Times",
           blurb:
@@ -325,7 +325,7 @@ const data = [
           link: "https://lvcampustimes.org/2022/02/wood-fire-ceramics-show-diversity-of-materials/",
         },
         {
-          imgSrc: "images/publications/7.jpg",
+          imgSrc: "images/published/7.jpg",
           title: "Juice bar fuels community with health, taste",
           magazine: "Campus Times",
           blurb:
@@ -333,7 +333,7 @@ const data = [
           link: "https://lvcampustimes.org/2022/03/juice-bar-fuels-community-with-health-taste/",
         },
         {
-          imgSrc: "images/publications/8.jpg",
+          imgSrc: "images/published/8.jpg",
           title: "Senior students tell stories through photography",
           magazine: "Campus Times",
           blurb:
@@ -341,7 +341,7 @@ const data = [
           link: "https://lvcampustimes.org/2022/04/senior-students-tell-stories-through-photography/",
         },
         {
-          imgSrc: "images/publications/9.jpg",
+          imgSrc: "images/published/9.jpg",
           title:
             "Stand Atlantic brings audience to tears with thrilling performance",
           magazine: "Campus Times",
@@ -350,7 +350,7 @@ const data = [
           link: "https://lvcampustimes.org/2022/05/stand-atlantic-brings-audience-to-tears-with-thrilling-performance/",
         },
         {
-          imgSrc: "images/publications/10.jpg",
+          imgSrc: "images/published/10.jpg",
           title: "Claremont Chorale celebrates women composers",
           magazine: "Campus Times",
           blurb:

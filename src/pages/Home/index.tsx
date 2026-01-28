@@ -15,7 +15,7 @@ import { useInView } from "motion/react";
 import { useLenis } from "lenis/react";
 
 const dc = "#111111";
-const lc = "#dedede";
+const lc = "#f8f8f8";
 
 export default function Home() {
   const lenis = useLenis();
