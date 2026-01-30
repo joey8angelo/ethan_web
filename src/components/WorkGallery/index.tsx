@@ -15,6 +15,7 @@ import LightBox, { type LightBoxHandle } from "@/components/LightBox";
 import { LiteYoutubeEmbed } from "react-lite-yt-embed";
 import { animate } from "motion";
 import data from "./data";
+import { useResponsive } from "@/hooks/";
 
 // Each element can be a single component in the future
 // each has almost identical logic
@@ -120,13 +121,19 @@ function PublicationElement({
       </motion.a>
       <a
         href={link}
-        style={{ display: "flex", flexDirection: "column", gap: "4px" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "4px",
+          width: "100%",
+        }}
       >
         <h3
           style={{
             fontWeight: 600,
             fontSize: "1.1rem",
             margin: 0,
+            textWrap: "wrap",
           }}
         >
           {title}
@@ -487,17 +494,29 @@ function GalleryContainer({
   );
 }
 
-const preSumSizes: number[] = [];
-let totalSize = 0;
+const preSumLg: number[] = [];
+const preSumMd: number[] = [];
+const preSumSm: number[] = [];
+let totalLg = 0;
+let totalMd = 0;
+let totalSm = 0;
 data.forEach((section) => {
-  preSumSizes.push(totalSize);
-  totalSize += section.size;
+  preSumLg.push(totalLg);
+  preSumMd.push(totalMd);
+  preSumSm.push(totalSm);
+  totalLg += section.lg;
+  totalMd += section.md;
+  totalSm += section.sm;
 });
 
 export default function WorkGallery() {
   const [height, setHeight] = useState(window.innerHeight);
   const [width, setWidth] = useState(window.innerWidth);
   const aspectOff = (height / width) * 100;
+  const { isMobile, isTablet } = useResponsive();
+
+  const totalSize = isMobile ? totalSm : isTablet ? totalMd : totalLg;
+  const preSumSizes = isMobile ? preSumSm : isTablet ? preSumMd : preSumLg;
 
   useEffect(() => {
     const handleResize = () => {
@@ -523,7 +542,7 @@ export default function WorkGallery() {
             <GalleryContainer
               key={idx}
               title={section.title}
-              size={section.size}
+              size={isMobile ? section.sm : isTablet ? section.md : section.lg}
               start={preSumSizes[idx]}
               totalSize={totalSize}
               data={section.data}

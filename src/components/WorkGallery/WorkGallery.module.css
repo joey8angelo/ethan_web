@@ -7,7 +7,6 @@
   height: 100vh;
   display: inline-flex;
   flex-direction: column;
-  /* padding: 1rem; */
 }
 
 .galleryTitle {
@@ -17,7 +16,9 @@
   padding-bottom: 2rem;
   font-family: Aachen;
   flex-grow: 0;
+  font-size: 2.5rem;
 }
+
 
 .galleryTitleUnderline {
   height: 0.25rem;
@@ -33,7 +34,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 2rem;
+  padding: 0 2rem 2rem 2rem;
   overflow: hidden;
 }
 .hovP {
@@ -73,4 +74,20 @@
 
 .gifContainer {
   border-radius: 1rem;
+}
+
+@media only screen and (max-width: 1023px) {
+  .galleryTitle {
+    font-size: 1.5rem;
+  }
+  
+  .galleryContent {
+  height: calc(100vh - 4rem);
+    margin-top: 4rem;
+  }
+  
+  .galleryTitle {
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+  }
 }

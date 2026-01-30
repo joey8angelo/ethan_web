@@ -6,6 +6,7 @@ import SlideElement from "@/components/SlideElement";
 import { AnimatePresence, motion } from "motion/react";
 import { useLenis } from "lenis/react";
 import Color from "color";
+import { useResponsive } from "@/hooks/";
 
 interface WorkButtonProps {
   color: string;
@@ -53,11 +54,7 @@ function WorkButton({ color, isHome }: WorkButtonProps) {
         <SlideElement duration={0.3} active={isHovered}>
           <div
             onClick={() => {
-              if (isHome) {
-                lenis?.scrollTo("#short-films");
-              } else {
-                window.location.href = "/#short-films";
-              }
+              setIsHovered(!isHovered);
             }}
           >
             WORK
@@ -195,6 +192,10 @@ export default function Header({
   const lenis = useLenis();
   const isHome = window.location.pathname === "/";
   const [isTop, setIsTop] = useState(true);
+  const { isMobile, isTablet } = useResponsive();
+
+  const padSz = isMobile ? 0.5 : isTablet ? 1 : 2;
+  const altPadSz = isMobile ? 1 : isTablet ? 4 : 6;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -210,10 +211,10 @@ export default function Header({
   return (
     <motion.header
       className={styles.header}
-      initial={{ paddingLeft: "2rem", paddingRight: "2rem" }}
+      initial={{ paddingLeft: `${padSz}rem`, paddingRight: `${padSz}rem` }}
       animate={{
-        paddingLeft: altLayout ? "6rem" : "2rem",
-        paddingRight: altLayout ? "6rem" : "2rem",
+        paddingLeft: altLayout ? `${altPadSz}rem` : `${padSz}rem`,
+        paddingRight: altLayout ? `${altPadSz}rem` : `${padSz}rem`,
         color,
         backdropFilter: isTop ? "none" : "blur(10px)",
         transition: { duration: 0.3 },

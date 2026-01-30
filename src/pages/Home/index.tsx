@@ -16,6 +16,7 @@ import { useLenis } from "lenis/react";
 import LightBox, { type LightBoxHandle } from "@/components/LightBox";
 
 import { LiteYoutubeEmbed } from "react-lite-yt-embed";
+import { useResponsive } from "@/hooks/";
 
 const dc = "#111111";
 const lc = "#f8f8f8";
@@ -34,6 +35,8 @@ export default function Home() {
   const headerColor = topInVew ? "white" : footerInView ? "#aaaaaa" : "black";
 
   const lbRef = useRef<LightBoxHandle>(null);
+
+  const { isMobile, isTablet } = useResponsive();
 
   return (
     <>
@@ -63,7 +66,7 @@ export default function Home() {
               style={{
                 width: "fit-content",
                 textAlign: "center",
-                fontSize: "2rem",
+                fontSize: isMobile ? "1rem" : isTablet ? "1.5rem" : "2rem",
               }}
             >
               ETHAN BERMUDEZ

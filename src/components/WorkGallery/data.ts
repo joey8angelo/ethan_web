@@ -1,7 +1,9 @@
 const data = [
   {
     title: "Short Films",
-    size: 80,
+    lg: 80,
+    md: 100,
+    sm: 200,
     rows: 1,
     data: {
       gif: [
@@ -22,7 +24,9 @@ const data = [
   },
   {
     title: "Music Videos",
-    size: 100,
+    lg: 100,
+    md: 140,
+    sm: 300,
     rows: 2,
     data: {
       gif: [
@@ -67,7 +71,9 @@ const data = [
   },
   {
     title: "Concerts",
-    size: 133,
+    lg: 133,
+    md: 185,
+    sm: 398,
     rows: 2,
     data: {
       // img: [
@@ -165,7 +171,9 @@ const data = [
   },
   {
     title: "Weddings",
-    size: 60,
+    lg: 60,
+    md: 80,
+    sm: 100,
     rows: 1,
     data: {
       gif: [
@@ -179,7 +187,9 @@ const data = [
   },
   {
     title: "Portraits",
-    size: 350,
+    lg: 350,
+    md: 600,
+    sm: 950,
     rows: 2,
     data: {
       img: [
@@ -278,7 +288,9 @@ const data = [
   },
   {
     title: "Published Work",
-    size: 150,
+    lg: 150,
+    md: 260,
+    sm: 400,
     rows: 2,
     data: {
       publication: [

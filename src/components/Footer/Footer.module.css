@@ -1,5 +1,6 @@
 .footer {
   width: 100vw;
+  overflow: hidden;
 }
 
 .contactSection {
@@ -11,6 +12,7 @@
   justify-content: space-between;
   padding: 0rem 6rem 0rem 6rem;
 }
+
 
 .contactContent {
   display: flex;
@@ -49,4 +51,43 @@
   grid-area: 1 / 1;
   white-space: pre;
   width: fit-content;
+}
+
+
+@media only screen and (max-width: 1023px) {
+  .contactSection {
+    padding: 0rem 4rem 0rem 4rem;
+
+  }
+  .contactContent {
+    font-size: 1rem;
+    gap: 0.5rem;
+  }
+  .contactContent h2 {
+    font-size: 2rem;
+  }
+  .contactSocials {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .contactSection {
+    padding: 0rem 2rem 0rem 2rem;
+    height: 30vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .contactContent {
+    align-items: center;
+    text-align: center;
+  }
+  .contactContent h2 {
+    font-size: 1.5rem;
+  }
+  .contactSocials {
+    align-items: center;
+  }
 }
