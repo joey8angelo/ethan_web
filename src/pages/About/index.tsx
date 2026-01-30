@@ -4,6 +4,7 @@ import styles from "./About.module.css";
 
 import { motion, useInView } from "motion/react";
 import { useEffect, useRef } from "react";
+import { useResponsive } from "@/hooks/useResponsive";
 
 interface ResumeElementProps {
   title: string;
@@ -158,6 +159,7 @@ const resumeData: ResumeElementProps[] = [
 export default function About() {
   const resumeRef = useRef<HTMLDivElement>(null);
   const isResumeInView = useInView(resumeRef, { margin: "0px 0px -50px 0px" });
+  const { isMobile, isTablet } = useResponsive();
 
   useEffect(() => {
     console.log("isResumeInView:", isResumeInView);
@@ -174,7 +176,7 @@ export default function About() {
             style={{
               width: "fit-content",
               textAlign: "center",
-              fontSize: "2rem",
+              fontSize: isMobile ? "1rem" : isTablet ? "1.5rem" : "2rem",
             }}
           >
             ETHAN BERMUDEZ
@@ -186,7 +188,7 @@ export default function About() {
           <div style={{ flexGrow: 1 }}>
             <img src="images/ethan.jpg" />
           </div>
-          <div className={styles.aboutContent} style={{ flexShrink: 2 }}>
+          <div className={styles.aboutContent}>
             <h1>HI! I'M ETHAN BERMUDEZ</h1>
             <div>
               <p>

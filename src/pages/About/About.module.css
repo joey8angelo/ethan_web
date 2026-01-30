@@ -9,7 +9,7 @@ body {
   min-height: calc(100vh - 8rem);
   height: fit-content;
   color: white;
-  max-width: 70%;
+  max-width: 70vw;
   margin: auto;
 }
 
@@ -25,6 +25,7 @@ body {
   flex-direction: column;
   padding-left: 4rem;
   gap: 1rem;
+  flex-shrink: 2;
 }
 
 .aboutContent h1 {
@@ -40,8 +41,9 @@ body {
   text-align: left;
 }
 
+
 .resumeSection {
-  max-width: 70%;
+  max-width: 70vw;
   margin: auto;
   padding-top: 4rem;
   color: white;
@@ -101,4 +103,78 @@ body {
   font-size: 1rem;
   font-weight: 300;
   margin-top: 0.25rem;
+}
+
+@media only screen and (max-width: 1023px) {
+  .aboutContent {
+    padding-left: 1rem;
+    flex-shrink: 1.5;
+    gap: 0rem;
+  }
+  .aboutContent h1 {
+    font-size: 2rem;
+  }
+  .aboutContent p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  .aboutSection {
+    max-width: 85vw;
+  }
+  .resumeSection {
+    max-width: 85vw;
+    padding-top: 2rem;
+  }
+  .resumeContent {
+    gap: 1rem;
+  }
+  
+  .resumeElement h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .resumeElementItem {
+    margin-bottom: 0.5rem;
+  }
+  .resumeItemPrimary {
+    font-size: 1.2rem;
+  }
+  .resumeItemSecondary {
+    font-size: 1rem;
+  }
+  .resumeItemTernary {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .aboutSection {
+    padding-top: 4rem;
+    max-width: 90vw;
+    flex-direction: column;
+  }
+  .aboutSection img {
+    max-width: 60%;
+  }
+  .aboutContent {
+    padding-left: 0;
+    align-items: center;
+    text-align: center;
+  }
+  .aboutContent h1 {
+    font-size: 1.5rem;
+  }
+  .aboutContent p {
+    font-size: 1rem;
+    line-height: 1.2rem;
+  }
+  .resumeSection {
+    padding-top: 2rem;
+    max-width: 90vw;
+  }
+  .resumeContent {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
 }

@@ -24,6 +24,8 @@ function WorkButton({ color, isHome }: WorkButtonProps) {
   const inv = colorObj.negate().fade(0.8).string();
   const border = colorObj.fade(0.8).string();
 
+  const { isMobile, isTablet } = useResponsive();
+
   const handleMouseEnter = () => {
     if (hideTimeoutRef.current) {
       clearTimeout(hideTimeoutRef.current);
@@ -70,7 +72,7 @@ function WorkButton({ color, isHome }: WorkButtonProps) {
             transition: "transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1)",
           }}
         >
-          <IoIosArrowUp size={18} />
+          <IoIosArrowUp size={isMobile || isTablet ? 14 : 18} />
         </div>
       </div>
       <AnimatePresence>
