@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useLenis } from "lenis/react";
 import Color from "color";
 import { useResponsive } from "@/hooks/";
+import Portal from "@/components/Portal";
 
 interface WorkButtonProps {
   color: string;
@@ -26,6 +27,16 @@ function WorkButton({ color, isHome }: WorkButtonProps) {
 
   const { isMobile, isTablet } = useResponsive();
 
+  const workDivRef = useRef<HTMLDivElement>(null);
+  const [dropdownLeft, setDropdownLeft] = useState(0);
+
+  const updateDropdownPosition = () => {
+    if (workDivRef.current) {
+      const rect = workDivRef.current.getBoundingClientRect();
+      setDropdownLeft(rect.left);
+    }
+  };
+
   const handleMouseEnter = () => {
     if (hideTimeoutRef.current) {
       clearTimeout(hideTimeoutRef.current);
@@ -33,6 +44,7 @@ function WorkButton({ color, isHome }: WorkButtonProps) {
 
     showTimeoutRef.current = setTimeout(() => {
       setIsHovered(true);
+      updateDropdownPosition();
     }, 0);
   };
 
@@ -52,11 +64,13 @@ function WorkButton({ color, isHome }: WorkButtonProps) {
         className={styles.workTitle}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        ref={workDivRef}
       >
         <SlideElement duration={0.3} active={isHovered}>
           <div
             onClick={() => {
               setIsHovered(!isHovered);
+              updateDropdownPosition();
             }}
           >
             WORK
@@ -75,103 +89,107 @@ function WorkButton({ color, isHome }: WorkButtonProps) {
           <IoIosArrowUp size={isMobile || isTablet ? 14 : 18} />
         </div>
       </div>
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            animate={{ opacity: 1, y: 0, transition: { duration: 0.3 } }}
-            initial={{ opacity: 0, y: -10, x: "0%" }}
-            exit={{
-              opacity: 0,
-              y: -10,
-              transition: { duration: 0.3 },
-            }}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className={styles.workDropdown}
-            style={{
-              backgroundColor: inv,
-              borderColor: border,
-              borderWidth: "1px",
-              borderStyle: "solid",
-            }}
-          >
-            <ul className={styles.dropdown}>
-              <li
-                onClick={() => {
-                  if (isHome) {
-                    lenis?.scrollTo("#short-films");
-                    handleMouseLeave();
-                  } else {
-                    window.location.href = "/#short-films";
-                  }
-                }}
-              >
-                Short Films
-              </li>
-              <li
-                onClick={() => {
-                  if (isHome) {
-                    lenis?.scrollTo("#music-videos");
-                    handleMouseLeave();
-                  } else {
-                    window.location.href = "/#music-videos";
-                  }
-                }}
-              >
-                Music Videos
-              </li>
-              <li
-                onClick={() => {
-                  if (isHome) {
-                    lenis?.scrollTo("#concerts");
-                    handleMouseLeave();
-                  } else {
-                    window.location.href = "/#concerts";
-                  }
-                }}
-              >
-                Concerts
-              </li>
-              <li
-                onClick={() => {
-                  if (isHome) {
-                    lenis?.scrollTo("#weddings");
-                    handleMouseLeave();
-                  } else {
-                    window.location.href = "/#weddings";
-                  }
-                }}
-              >
-                Weddings
-              </li>
-              <li
-                onClick={() => {
-                  if (isHome) {
-                    lenis?.scrollTo("#portraits");
-                    handleMouseLeave();
-                  } else {
-                    window.location.href = "/#portraits";
-                  }
-                }}
-              >
-                Portraits
-              </li>
-              <li
-                onClick={() => {
-                  if (isHome) {
-                    lenis?.scrollTo("#published-work");
-                    handleMouseLeave();
-                  } else {
-                    window.location.href = "/#published-work";
-                  }
-                }}
-              >
-                Published Work
-              </li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Portal>
+        <AnimatePresence>
+          {isHovered && (
+            <motion.div
+              animate={{ opacity: 1, y: 0, transition: { duration: 0.3 } }}
+              initial={{ opacity: 0, y: -10, x: "0%" }}
+              exit={{
+                opacity: 0,
+                y: -10,
+                transition: { duration: 0.3 },
+              }}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className={styles.workDropdown}
+              style={{
+                backgroundColor: inv,
+                borderColor: border,
+                borderWidth: "1px",
+                borderStyle: "solid",
+                left: dropdownLeft,
+                color: color,
+              }}
+            >
+              <ul className={styles.dropdown}>
+                <li
+                  onClick={() => {
+                    if (isHome) {
+                      lenis?.scrollTo("#short-films");
+                      handleMouseLeave();
+                    } else {
+                      window.location.href = "/#short-films";
+                    }
+                  }}
+                >
+                  Short Films
+                </li>
+                <li
+                  onClick={() => {
+                    if (isHome) {
+                      lenis?.scrollTo("#music-videos");
+                      handleMouseLeave();
+                    } else {
+                      window.location.href = "/#music-videos";
+                    }
+                  }}
+                >
+                  Music Videos
+                </li>
+                <li
+                  onClick={() => {
+                    if (isHome) {
+                      lenis?.scrollTo("#concerts");
+                      handleMouseLeave();
+                    } else {
+                      window.location.href = "/#concerts";
+                    }
+                  }}
+                >
+                  Concerts
+                </li>
+                <li
+                  onClick={() => {
+                    if (isHome) {
+                      lenis?.scrollTo("#weddings");
+                      handleMouseLeave();
+                    } else {
+                      window.location.href = "/#weddings";
+                    }
+                  }}
+                >
+                  Weddings
+                </li>
+                <li
+                  onClick={() => {
+                    if (isHome) {
+                      lenis?.scrollTo("#portraits");
+                      handleMouseLeave();
+                    } else {
+                      window.location.href = "/#portraits";
+                    }
+                  }}
+                >
+                  Portraits
+                </li>
+                <li
+                  onClick={() => {
+                    if (isHome) {
+                      lenis?.scrollTo("#published-work");
+                      handleMouseLeave();
+                    } else {
+                      window.location.href = "/#published-work";
+                    }
+                  }}
+                >
+                  Published Work
+                </li>
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Portal>
     </div>
   );
 }
